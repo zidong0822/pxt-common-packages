@@ -45,6 +45,7 @@ namespace jacdac {
     export const PROXIMITY_DEVICE_CLASS = 2023;
     export const TOUCH_BUTTONS_DEVICE_CLASS = 2024;
     export const SERVOS_DEVICE_CLASS = 2025;
+    export const SHARED_MAP_CLASS = 2026;
 
     // events
     export const JD_MESSAGE_BUS_ID = JD_DEVICE_CLASS_MAKECODE_START;
@@ -204,6 +205,11 @@ const enum JDControllerCommand {
     ControlClient = 3
 }
 
+const enum JDSharedMapCommand {
+    Remove = 1,
+    Write = 2
+}
+
 const enum JDControllerButton {
     A = 5,
     B = 6,
@@ -247,3 +253,4 @@ const enum JDPromixityEvent {
     Close = DAL.LEVEL_THRESHOLD_LOW,
     Far = DAL.LEVEL_THRESHOLD_HIGH
 }
+
