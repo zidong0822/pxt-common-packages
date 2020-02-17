@@ -49,6 +49,7 @@
         "settings": "file:../settings",
         "screen": "file:../screen",
         "mixer": "file:../mixer",
-        "power": "file:../power"
+        "power": "file:../power",
+        "led": "file:../led"
     }
 }

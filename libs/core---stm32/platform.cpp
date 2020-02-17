@@ -12,10 +12,15 @@ struct TimerConfig {
 };
 
 #define TIM1_IRQn TIM1_CC_IRQn
+#define TIM8_IRQn TIM8_CC_IRQn
 #ifdef STM32F4
 #define TIM9_IRQn TIM1_BRK_TIM9_IRQn
 #define TIM10_IRQn TIM1_UP_TIM10_IRQn
 #define TIM11_IRQn TIM1_TRG_COM_TIM11_IRQn
+
+#define TIM12_IRQn TIM8_BRK_TIM12_IRQn
+#define TIM13_IRQn TIM8_UP_TIM13_IRQn
+#define TIM14_IRQn TIM8_TRG_COM_TIM14_IRQn
 #endif
 
 #define DEF_TIM(n)                                                                                 \
@@ -110,6 +115,11 @@ extern "C" void apply_clock_init(RCC_OscInitTypeDef *oscInit, RCC_ClkInitTypeDef
                                  uint32_t flashLatency) {
 
     int mhz = getConfig(CFG_CPU_MHZ, 84);
+
+
+    #ifdef STM32F412Rx
+        oscInit->PLL.PLLR = 7;
+    #endif
 
     if (mhz >= 216) {
         oscInit->PLL.PLLN = 432;

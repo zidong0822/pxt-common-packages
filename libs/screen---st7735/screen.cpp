@@ -1,7 +1,6 @@
 #include "pxt.h"
 #include "ST7735.h"
 #include "ILI9341.h"
-
 #include "SPIScreenIO.h"
 #ifdef STM32F4
 #include "FSMCIO.h"
@@ -26,20 +25,64 @@ class WDisplay {
     uint8_t offX, offY;
     bool doubleSize;
     uint32_t palXOR;
+    // uint8_t led_buf_bytes[4] = {0x88, 0x8E, 0xE8, 0xEE};
+    // uint8_t led_txBuffer[8 * 3 * 4 + 1];
+    // uint32_t led_txSize = 8 * 3 * 4 + 1;
 
     WDisplay() {
         uint32_t cfg2 = getConfig(CFG_DISPLAY_CFG2, 0x0);
+        
         int conn = cfg2 >> 24;
 
+       
         SPI *spi = NULL;
+
+
         if (conn == 0) {
             spi = new CODAL_SPI(*LOOKUP_PIN(DISPLAY_MOSI), *LOOKUP_PIN(DISPLAY_MISO),
                                 *LOOKUP_PIN(DISPLAY_SCK));
+
+       // memset(led_txBuffer, 0x88, led_txSize - 1);
+
+        // CODAL_PIN led_mosi(DEVICE_ID_IO_P0 + 30,PB_8,PIN_CAPABILITY_DIGITAL);
+        // CODAL_PIN *led_miso = NULL;
+        // CODAL_PIN *led_sclk = NULL;
+
+
+        // ZSPI_LED led(led_mosi, *led_miso, *led_sclk);
+
+
+
+        // led.setFrequency(3200000);
+
+        // led.transfer(led_txBuffer, led_txSize, NULL, 0);
+        
+        // uint8_t mask = 0x03;
+        // int index = 1 * 12;
+
+        // led_txBuffer[index] = led_buf_bytes[0 >> 6 & mask];
+        // led_txBuffer[index + 1] = led_buf_bytes[0 >> 4 & mask];
+        // led_txBuffer[index + 2] = led_buf_bytes[0 >> 2 & mask];
+        // led_txBuffer[index + 3] = led_buf_bytes[0 & mask];
+
+        // led_txBuffer[index + 4] = led_buf_bytes[15 >> 6 & mask];
+        // led_txBuffer[index + 5] = led_buf_bytes[15 >> 4 & mask];
+        // led_txBuffer[index + 6] = led_buf_bytes[15 >> 2 & mask];
+        // led_txBuffer[index + 7] = led_buf_bytes[15 & mask];
+
+        // led_txBuffer[index + 8] = led_buf_bytes[0 >> 6 & mask];
+        // led_txBuffer[index + 9] = led_buf_bytes[0 >> 4 & mask];
+        // led_txBuffer[index + 10] = led_buf_bytes[0 >> 2 & mask];
+        // led_txBuffer[index + 11] = led_buf_bytes[0 & mask]; 
+
+
+        // led.transfer(led_txBuffer, led_txSize, NULL, 0);
+
+
             io = new SPIScreenIO(*spi);
         } else if (conn == 1) {
 #ifdef CODAL_CREATE_PARALLEL_SCREEN_IO
-            io = CODAL_CREATE_PARALLEL_SCREEN_IO(cfg2 & 0xffffff, PIN(DISPLAY_MOSI),
-                                                 PIN(DISPLAY_MISO));
+            io = CODAL_CREATE_PARALLEL_SCREEN_IO(cfg2 & 0xffffff, PIN(DISPLAY_MOSI), PIN(DISPLAY_MISO));
 #else
             target_panic(PANIC_SCREEN_ERROR);
 #endif
@@ -59,6 +102,19 @@ class WDisplay {
         } else
             target_panic(PANIC_SCREEN_ERROR);
 
+        auto rst = LOOKUP_PIN(DISPLAY_RST);
+        if (rst) {
+            rst->setDigitalValue(0);
+            fiber_sleep(20);
+            rst->setDigitalValue(1);
+            fiber_sleep(20);
+        }
+
+        auto bl = LOOKUP_PIN(DISPLAY_BL);
+        if (bl) {
+            bl->setDigitalValue(1);
+        }
+
         uint32_t cfg0 = getConfig(CFG_DISPLAY_CFG0, 0x40);
         uint32_t frmctr1 = getConfig(CFG_DISPLAY_CFG1, 0x000603);
         palXOR = (cfg0 & 0x1000000) ? 0xffffff : 0x000000;
@@ -74,21 +130,6 @@ class WDisplay {
                 freq = 15;
             spi->setFrequency(freq * 1000000);
             spi->setMode(0);
-            // make sure the SPI peripheral is initialized before toggling reset
-            spi->write(0);
-        }
-
-        auto rst = LOOKUP_PIN(DISPLAY_RST);
-        if (rst) {
-            rst->setDigitalValue(0);
-            fiber_sleep(20);
-            rst->setDigitalValue(1);
-            fiber_sleep(20);
-        }
-
-        auto bl = LOOKUP_PIN(DISPLAY_BL);
-        if (bl) {
-            bl->setDigitalValue(1);
         }
 
         lcd->init();

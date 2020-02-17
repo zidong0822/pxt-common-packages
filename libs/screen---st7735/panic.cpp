@@ -1,6 +1,6 @@
 #include "pxt.h"
 
-// This adds about 1.2k of binary size, but allows for displaying
+// This adds about 1.2k of binary size, but allows for displaying 
 // panic codes regardless of heap state etc. with IRQs disabled.
 
 #define ST7735_NOP 0x00
@@ -119,8 +119,7 @@ void ST7735::fill(int color, int numpixels) {
     sendCmd(cmd, 1);
 
     dc->setDigitalValue(1);
-    if (cs)
-        cs->setDigitalValue(0);
+    cs->setDigitalValue(0);
 
     cmd[0] = color >> 4;
     cmd[1] = (color << 4) | (color >> 8);
@@ -131,23 +130,20 @@ void ST7735::fill(int color, int numpixels) {
         sendBytes(cmd, 3);
     }
 
-    if (cs)
-        cs->setDigitalValue(1);
+    cs->setDigitalValue(1);
 }
 
 void ST7735::sendCmd(uint8_t *buf, int len) {
     // make sure cmd isn't on stack
     dc->setDigitalValue(0);
-    if (cs)
-        cs->setDigitalValue(0);
+    cs->setDigitalValue(0);
     sendBytes(buf, 1);
     dc->setDigitalValue(1);
     len--;
     buf++;
     if (len > 0)
         sendBytes(buf, len);
-    if (cs)
-        cs->setDigitalValue(1);
+    cs->setDigitalValue(1);
 }
 
 static void busy_wait_us(int ms) {
@@ -195,8 +191,7 @@ void ST7735::init() {
     auto bl = LOOKUP_PIN(DISPLAY_BL);
     auto rst = LOOKUP_PIN(DISPLAY_RST);
 
-    if (cs)
-        cs->setDigitalValue(1);
+    cs->setDigitalValue(1);
     dc->setDigitalValue(1);
 
     if (bl) {
@@ -295,7 +290,7 @@ extern "C" void target_panic(int statusCode) {
         if (led) {
             // SOS
             // . . .
-            for (int i = 0; i < 3; ++i) {
+            for(int i = 0; i < 3; ++i) {
                 led->setDigitalValue(1);
                 busy_wait_us(dit);
                 led->setDigitalValue(0);
@@ -303,8 +298,8 @@ extern "C" void target_panic(int statusCode) {
             }
             // inter character space
             busy_wait_us(inter);
-            // - - -
-            for (int i = 0; i < 3; ++i) {
+            // - - - 
+            for(int i = 0; i < 3; ++i) {
                 led->setDigitalValue(1);
                 busy_wait_us(dat);
                 led->setDigitalValue(0);
@@ -313,7 +308,7 @@ extern "C" void target_panic(int statusCode) {
             // inter character space
             busy_wait_us(inter);
             // . . .
-            for (int i = 0; i < 3; ++i) {
+            for(int i = 0; i < 3; ++i) {
                 led->setDigitalValue(1);
                 busy_wait_us(dit);
                 led->setDigitalValue(0);
