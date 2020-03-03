@@ -17,6 +17,15 @@ struct TimerConfig {
 #define TIM10_IRQn TIM1_UP_TIM10_IRQn
 #define TIM11_IRQn TIM1_TRG_COM_TIM11_IRQn
 #endif
+    
+#ifdef TIM8
+#define TIM8_IRQn TIM8_CC_IRQn
+#ifdef STM32F412Rx
+#define TIM12_IRQn TIM8_BRK_TIM12_IRQn
+#define TIM13_IRQn TIM8_UP_TIM13_IRQn
+#define TIM14_IRQn TIM8_TRG_COM_TIM14_IRQn
+#endif
+#endif
 
 #define DEF_TIM(n)                                                                                 \
     { 0x10 + n, TIM##n##_IRQn, TIM##n }
@@ -150,6 +159,9 @@ extern "C" void apply_clock_init(RCC_OscInitTypeDef *oscInit, RCC_ClkInitTypeDef
     } else {
         target_panic(PANIC_CODAL_HARDWARE_CONFIGURATION_ERROR);
     }
+#ifdef STM32F412Rx
+        oscInit->PLL.PLLR = oscInit->PLL.PLLQ;
+#endif
 
     DMESG("CPU clock: %dMHz -> %dMHz", mhz,
           oscInit->PLL.PLLN / (oscInit->PLL.PLLP == RCC_PLLP_DIV4 ? 4 : 2));

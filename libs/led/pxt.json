@@ -1,0 +1,15 @@
+{
+    "name": "led",
+    "description": "Power and sleep management",
+    "files": [
+        "led.cpp",
+        "led.ts",
+        "shims.d.ts"
+    ],
+    "testFiles": [
+    ],
+    "public": true,
+    "dependencies": {
+        "core": "file:../core"
+    }
+}
