@@ -6,7 +6,6 @@
 #include "ZPin.h"
 #include "Timer.h"
 #include "ZSPI.h"
-#include "ZSPI_LED.h"
 #include "ZI2C.h"
 #include "ZSingleWireSerial.h"
 
@@ -65,7 +64,6 @@ struct F4_Settings {
 #define CODAL_PIN ZPin
 #define CODAL_TIMER Timer
 #define CODAL_SPI ZSPI
-#define CODAL_SPI_LED ZSPI_LED
 #define CODAL_I2C ZI2C
 #define CODAL_JACDAC_WIRE_SERIAL codal::ZSingleWireSerial
 
