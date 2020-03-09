@@ -2,6 +2,7 @@
 #include "STMLowLevelTimer.h"
 #include "Accelerometer.h"
 #include "light.h"
+#include "led.h"
 
 namespace pxt {
 
@@ -225,6 +226,7 @@ void platform_init() {
     initRandomSeed();
     setSendToUART(platformSendSerial);
     light::clear();
+    led::clear();
 
     // make sure sound doesn't draw power before enabled
     set_if_present(CFG_PIN_JACK_SND, 0);

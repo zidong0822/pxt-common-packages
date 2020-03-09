@@ -3,6 +3,7 @@
     "description": "Power and sleep management",
     "files": [
         "led.cpp",
+        "led.h",
         "led.ts",
         "shims.d.ts"
     ],
