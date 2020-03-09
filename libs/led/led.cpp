@@ -39,11 +39,13 @@ public:
         txBuffer[index + 11] = buf_bytes[blue & mask];
 
         spi_led->transfer(txBuffer, txSize, NULL, 0);
+        sleep_us(100);
     }
 
     void clear() {
         memset(txBuffer, 0x88, txSize - 1);
         spi_led->transfer(txBuffer, txSize, NULL, 0);
+        sleep_us(100);
     }
 
 private:
