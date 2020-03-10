@@ -311,6 +311,18 @@
 #define CFG_PIN_P30 430
 #define CFG_PIN_P31 431
 
+// for hetao extra buttons and spi led
+#define CFG_PIN_BTN_A1 500
+#define CFG_PIN_BTN_A2 501
+#define CFG_PIN_BTN_A3 502
+#define CFG_PIN_BTN_A4 503
+#define CFG_PIN_BTN_A5 504
+#define CFG_PIN_BTN_B1 505
+#define CFG_PIN_BTN_B2 506
+#define CFG_PIN_BTN_B3 507
+#define CFG_PIN_BTN_B4 508
+#define CFG_PIN_SPI_LED 509
+
 #define CFG_PIN_LORA_MISO 1001
 #define CFG_PIN_LORA_MOSI 1002
 #define CFG_PIN_LORA_SCK 1003

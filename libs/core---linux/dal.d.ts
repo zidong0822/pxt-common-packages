@@ -602,6 +602,19 @@ declare const enum DAL {
     CFG_DEFAULT_BUTTON_MODE = 202,
     CFG_SWD_ENABLED = 203,
     CFG_FLASH_BYTES = 204,
+
+    // for hetao extra buttons and spi led
+    CFG_PIN_BTN_A1 = 500,
+    CFG_PIN_BTN_A2 = 501,
+    CFG_PIN_BTN_A3 = 502,
+    CFG_PIN_BTN_A4 = 503,
+    CFG_PIN_BTN_A5 = 504,
+    CFG_PIN_BTN_B1 = 505,
+    CFG_PIN_BTN_B2 = 506,
+    CFG_PIN_BTN_B3 = 507,
+    CFG_PIN_BTN_B4 = 508,
+    CFG_PIN_SPI_LED = 509,
+
     BUTTON_ACTIVE_HIGH_PULL_DOWN = 17,
     BUTTON_ACTIVE_HIGH_PULL_UP = 33,
     BUTTON_ACTIVE_HIGH_PULL_NONE = 49,

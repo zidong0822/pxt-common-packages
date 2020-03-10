@@ -1,0 +1,13 @@
+{
+    "name": "extra-buttons",
+    "description": "Extra buttons",
+    "files": [
+        "extrabuttons.ts",
+        "extrabuttonsoverrides.ts"
+    ],
+    "public": true,
+    "dependencies": {
+        "core": "file:../core",
+        "game": "file:../game"
+    }
+}

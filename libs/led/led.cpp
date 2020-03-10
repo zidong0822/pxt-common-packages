@@ -7,9 +7,8 @@ namespace pxt {
 class Led {
 public:
     Led() {
-        CODAL_PIN spi_led_pin(DEVICE_ID_IO_P0 + 36, PB_5, PIN_CAPABILITY_DIGITAL);
         CODAL_PIN *NULL_CODAL_PIN = NULL;
-        spi_led = new CODAL_SPI(spi_led_pin, *NULL_CODAL_PIN, *NULL_CODAL_PIN);
+        spi_led = new CODAL_SPI(*LOOKUP_PIN(SPI_LED), *NULL_CODAL_PIN, *NULL_CODAL_PIN);
         spi_led->setFrequency(3200000);
         // init spi
         spi_led->transfer(txBuffer, txSize, NULL, 0);
@@ -68,6 +67,9 @@ void showLED(int id, int red, int green, int blue) {
     spi_led->show(id, red, green, blue);
 }
 
+//% blockId=clear_led block="clear led"
+//% group="LED"
+//% inlineInputMode=inline
 void clear() {
     auto spi_led = pxt::getLed();
     spi_led->clear();

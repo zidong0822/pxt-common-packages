@@ -989,6 +989,19 @@ declare const enum DAL {
     CFG_PIN_P18 = 418,
     CFG_PIN_P19 = 419,
     CFG_PIN_P20 = 420,
+
+    // for hetao extra buttons and spi led
+    CFG_PIN_BTN_A1 = 500,
+    CFG_PIN_BTN_A2 = 501,
+    CFG_PIN_BTN_A3 = 502,
+    CFG_PIN_BTN_A4 = 503,
+    CFG_PIN_BTN_A5 = 504,
+    CFG_PIN_BTN_B1 = 505,
+    CFG_PIN_BTN_B2 = 506,
+    CFG_PIN_BTN_B3 = 507,
+    CFG_PIN_BTN_B4 = 508,
+    CFG_PIN_SPI_LED = 509,
+
     CFG_PIN_LORA_MISO = 1001,
     CFG_PIN_LORA_MOSI = 1002,
     CFG_PIN_LORA_SCK = 1003,
