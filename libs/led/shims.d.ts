@@ -13,6 +13,11 @@ declare namespace led {
     //% inlineInputMode=inline
     function showLED(id: int32, red: int32, green: int32, blue: int32): void;
 
+    //% blockId=clear_led block="clear led"
+    //% group="LED" shim=led::clear
+    //% inlineInputMode=inline
+    function clear(): void;
+
 }
 
 // Auto-generated. Do not edit. Really.
